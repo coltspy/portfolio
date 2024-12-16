@@ -105,16 +105,8 @@ export default function RootLayout({
         <main className="min-h-screen">
           {children}
         </main>
-        <footer className="border-t border-gray-800">
-          <nav aria-label="Footer Navigation">
-            <ul className="flex gap-4 justify-center py-8 text-sm text-gray-400">
-              <li><a href="/privacy" className="hover:text-white transition-colors">Privacy Policy</a></li>
-              <li><a href="/terms" className="hover:text-white transition-colors">Terms of Service</a></li>
-              <li>© {new Date().getFullYear()} Colton Spyker</li>
-            </ul>
-          </nav>
-        </footer>
       </body>
     </html>
   )
 }
+

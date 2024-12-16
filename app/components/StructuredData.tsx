@@ -7,7 +7,7 @@ export default function StructuredData() {
       name: "Colton Spyker",
       url: "https://coltonspyker.com",
       image: "https://coltonspyker.com/profile-image.jpg",
-      description: "AI & Crypto Developer based in Los Angeles",
+      description: "AI & ML Developer based in Los Angeles",
       jobTitle: "AI Engineer",
       worksFor: {
         "@type": "Organization",

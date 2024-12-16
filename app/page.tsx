@@ -2,11 +2,9 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { Linkedin, Mail, Twitter, Github, Copy, ChevronDown, ChevronUp, FileText, Globe } from 'lucide-react'
+import { Linkedin, Mail, Twitter, Github, Copy, ChevronDown, ChevronUp, FileText, Globe, Moon, Sun } from 'lucide-react'
 import { motion } from 'framer-motion'
-import { useState } from 'react'
-
-// Import your project image
+import { useState, useEffect } from 'react'
 import project1Image from './images/snip.jpg'
 
 const projects = [
@@ -15,7 +13,7 @@ const projects = [
     description: 'Desktop app for coding interviews with Eye Tracking, Video & Screen Share, Detailed Logging, and AI Question Generation.',
     image: project1Image,
     liveLink: 'https://splyfe.io',
-    githubLink: 'https://github.com/yourusername/splyfe',
+    githubLink: 'https://github.com/coltspy/splyfe',
     tags: ['OpenCV', 'Dlib', 'WebRTC', 'Firebase', 'Live Video, Chat, Screenshare', 'Anti-Cheating Features']
   },
   {
@@ -44,7 +42,7 @@ const projects = [
   }
 ]
 
-const technologies = ['Python', 'TensorFlow', 'PyTorch', 'OpenCV', 'CUDA', 'Docker']
+const technologies = ['Python', 'TensorFlow', 'PyTorch', 'OpenCV', 'CUDA', 'Docker', 'TensorRT', 'scikit-learn', 'YOLO', 'Deepstream-SDK']
 
 const education = [
   {
@@ -69,6 +67,16 @@ const education = [
 export default function Component() {
   const [copied, setCopied] = useState(false)
   const [showAllProjects, setShowAllProjects] = useState(false)
+  const [isDark, setIsDark] = useState(true)
+
+  useEffect(() => {
+    document.documentElement.classList.add('dark')
+  }, [])
+
+  const toggleTheme = () => {
+    setIsDark(!isDark)
+    document.documentElement.classList.toggle('dark')
+  }
 
   const copyEmail = () => {
     navigator.clipboard.writeText('hi@coltonspyker.com')
@@ -83,11 +91,24 @@ export default function Component() {
   const displayedProjects = showAllProjects ? projects : projects.slice(0, 3)
 
   return (
-    <div className="min-h-screen bg-[#09090B] text-gray-200">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#111113] text-gray-900 dark:text-gray-200 transition-colors duration-200">
       <div className="max-w-[900px] mx-auto p-6">
-        {/* Header */}
+        <div className="fixed top-6 right-6 z-50">
+          <button
+            onClick={toggleTheme}
+            className="p-3 rounded-full bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors shadow-lg"
+            aria-label="Toggle theme"
+          >
+            {isDark ? (
+              <Sun className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+            ) : (
+              <Moon className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+            )}
+          </button>
+        </div>
+
         <motion.div 
-          className="border border-gray-700 rounded-lg p-4 mb-8"
+          className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 mb-8 bg-white dark:bg-transparent"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -104,9 +125,9 @@ export default function Component() {
               <div>
                 <h1 className="text-xl font-semibold">Colton Spyker</h1>
                 <div className="flex items-center gap-2 text-sm">
-                  <p className="text-gray-400">AI & Crypto Developer</p>
-                  <span className="text-gray-400">•</span>
-                  <p className="text-gray-400">Los Angeles, CA 🌉</p>
+                  <p className="text-gray-600 dark:text-gray-400">AI & ML Developer</p>
+                  <span className="text-gray-600 dark:text-gray-400">•</span>
+                  <p className="text-gray-600 dark:text-gray-400">Los Angeles, CA 🌉</p>
                 </div>
               </div>
             </div>
@@ -115,7 +136,7 @@ export default function Component() {
                 href="https://linkedin.com/in/coltonspyker" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="text-gray-400 hover:text-white transition-colors"
+                className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
               >
                 <Linkedin className="w-5 h-5" />
                 <span className="sr-only">LinkedIn</span>
@@ -124,7 +145,7 @@ export default function Component() {
                 href="https://twitter.com/coltonspyker" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="text-gray-400 hover:text-white transition-colors"
+                className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
               >
                 <Twitter className="w-5 h-5" />
                 <span className="sr-only">Twitter</span>
@@ -133,128 +154,133 @@ export default function Component() {
                 href="https://github.com/coltspy" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="text-gray-400 hover:text-white transition-colors"
+                className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
               >
                 <Github className="w-5 h-5" />
                 <span className="sr-only">GitHub</span>
               </Link>
+            </div>
+          </div>
+          <div className="space-y-2">
+            <div className="flex items-center gap-2 text-sm">
+              <Mail className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+              <span className="text-gray-700 dark:text-gray-300">hi@coltonspyker.com</span>
+              <button
+                onClick={copyEmail}
+                className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+                aria-label="Copy email"
+              >
+                <Copy className="w-3 h-3" />
+              </button>
+              {copied && <span className="text-green-600 dark:text-green-400 text-xs">Copied!</span>}
+            </div>
+            <div className="flex items-center gap-2 text-sm">
+              <FileText className="w-4 h-4 text-gray-600 dark:text-gray-400" />
               <Link 
                 href="/colton-spyker-cv.pdf" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="text-gray-400 hover:text-white transition-colors flex items-center gap-1"
+                className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
               >
-                <FileText className="w-5 h-5" />
-                <span className="text-sm">View CV</span>
+                View my CV
               </Link>
             </div>
           </div>
-          <div className="flex items-center gap-2 mb-3 text-sm">
-            <Mail className="w-4 h-4 text-gray-400" />
-            <span className="text-gray-300">hi@coltonspyker.com</span>
-            <button
-              onClick={copyEmail}
-              className="text-gray-400 hover:text-white transition-colors"
-              aria-label="Copy email"
-            >
-              <Copy className="w-3 h-3" />
-            </button>
-            {copied && <span className="text-green-400 text-xs">Copied!</span>}
-          </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 mt-4">
             {technologies.map((tech) => (
-              <span key={tech} className="border border-gray-700 text-gray-300 px-2 py-0.5 rounded text-xs">
+              <span 
+                key={tech} 
+                className="border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 px-2 py-0.5 rounded text-xs bg-gray-50 dark:bg-gray-800"
+              >
                 {tech}
               </span>
             ))}
           </div>
         </motion.div>
 
-        {/* Projects */}
         <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-        className="mb-8"
-      >
-        <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-          projects
-          <span className="text-gray-400">📱</span>
-        </h2>
-        <div className="grid md:grid-cols-3 gap-4">
-          {displayedProjects.map((project, i) => (
-            <motion.div
-              key={project.title}
-              className="group border border-gray-700 rounded-lg p-3"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="mb-8"
+        >
+          <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
+            projects
+            <span className="text-gray-600 dark:text-gray-400">📱</span>
+          </h2>
+          <div className="grid md:grid-cols-3 gap-4">
+            {displayedProjects.map((project, i) => (
+              <motion.div
+                key={project.title}
+                className="group border border-gray-200 dark:border-gray-700 rounded-lg p-3 bg-white dark:bg-transparent"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
+              >
+                <div className="relative aspect-[5/3] mb-3 overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-800">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                </div>
+                <h3 className="font-medium mb-1 group-hover:text-gray-900 dark:group-hover:text-white transition-colors text-sm">
+                  {project.title}
+                </h3>
+                <p className="text-xs text-gray-600 dark:text-gray-400 mb-2">
+                  {project.description}
+                </p>
+                <div className="flex flex-wrap gap-1 mb-3">
+                  {project.tags.map((tag) => (
+                    <span key={tag} className="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-2 py-0.5 rounded-full text-xs">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <div className="flex gap-2">
+                  <Link
+                    href={project.liveLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1 text-xs bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-md transition-colors"
+                  >
+                    <Globe className="w-3 h-3" />
+                    Live Site
+                  </Link>
+                  <Link
+                    href={project.githubLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1 text-xs bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-white px-3 py-1.5 rounded-md transition-colors"
+                  >
+                    <Github className="w-3 h-3" />
+                    GitHub
+                  </Link>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+          {projects.length > 3 && (
+            <button
+              onClick={toggleProjects}
+              className="mt-4 flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
             >
-              <div className="relative aspect-[5/3] mb-3 overflow-hidden rounded-lg bg-gray-800">
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  fill
-                  className="object-cover transition-transform duration-300 group-hover:scale-105"
-                />
-              </div>
-              <h3 className="font-medium mb-1 group-hover:text-white transition-colors text-sm">
-                {project.title}
-              </h3>
-              <p className="text-xs text-gray-400 mb-2">
-                {project.description}
-              </p>
-              <div className="flex flex-wrap gap-1 mb-3">
-                {project.tags.map((tag) => (
-                  <span key={tag} className="bg-gray-800 text-gray-300 px-2 py-0.5 rounded-full text-xs">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              <div className="flex gap-2">
-                <Link
-                  href={project.liveLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1 text-xs bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-md transition-colors"
-                >
-                  <Globe className="w-3 h-3" />
-                  Live Site
-                </Link>
-                <Link
-                  href={project.githubLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1 text-xs bg-gray-700 hover:bg-gray-600 text-white px-3 py-1.5 rounded-md transition-colors"
-                >
-                  <Github className="w-3 h-3" />
-                  GitHub
-                </Link>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-        {projects.length > 3 && (
-          <button
-            onClick={toggleProjects}
-            className="mt-4 flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
-          >
-            {showAllProjects ? (
-              <>
-                <ChevronUp className="w-4 h-4" />
-                <span>Show Less</span>
-              </>
-            ) : (
-              <>
-                <ChevronDown className="w-4 h-4" />
-                <span>View All Projects</span>
-              </>
-            )}
-          </button>
-        )}
-      </motion.div>
+              {showAllProjects ? (
+                <>
+                  <ChevronUp className="w-4 h-4" />
+                  <span>Show Less</span>
+                </>
+              ) : (
+                <>
+                  <ChevronDown className="w-4 h-4" />
+                  <span>View All Projects</span>
+                </>
+              )}
+            </button>
+          )}
+        </motion.div>
 
-        {/* Education */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -262,27 +288,27 @@ export default function Component() {
         >
           <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
             education
-            <span className="text-gray-400">🎓</span>
+            <span className="text-gray-600 dark:text-gray-400">🎓</span>
           </h2>
           <div className="space-y-4">
             {education.map((item, i) => (
               <motion.div
                 key={item.institution}
-                className="border border-gray-700 rounded-lg p-3"
+                className="border border-gray-200 dark:border-gray-700 rounded-lg p-3 bg-white dark:bg-transparent"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.4 + i * 0.1 }}
               >
-                <h3 className="font-medium text-white text-sm">{item.institution}</h3>
-                {item.provider && <p className="text-xs text-gray-400">{item.provider}</p>}
-                <p className="text-xs text-gray-400">{item.period}</p>
-                {item.description && <p className="text-xs text-gray-300 mt-1">{item.description}</p>}
+                <h3 className="font-medium text-gray-900 dark:text-white text-sm">{item.institution}</h3>
+                {item.provider && <p className="text-xs text-gray-600 dark:text-gray-400">{item.provider}</p>}
+                <p className="text-xs text-gray-600 dark:text-gray-400">{item.period}</p>
+                {item.description && <p className="text-xs text-gray-700 dark:text-gray-300 mt-1">{item.description}</p>}
                 {item.certificate && (
                   <a
                     href={item.certificate}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs text-blue-400 hover:text-blue-300 transition-colors mt-1 inline-block"
+                    className="text-xs text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors mt-1 inline-block"
                   >
                     View Certificate
                   </a>
