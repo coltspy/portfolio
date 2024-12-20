@@ -5,13 +5,13 @@ import Link from 'next/link'
 import { Linkedin, Mail, Twitter, Github, Copy, ChevronDown, ChevronUp, FileText, Globe, Moon, Sun } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { useState, useEffect } from 'react'
-import project1Image from './images/snip.jpg'
+
 
 const projects = [
   {
     title: 'Splyfe Interview',
     description: 'Desktop app for coding interviews with Eye Tracking, Video & Screen Share, Detailed Logging, and AI Question Generation.',
-    image: project1Image,
+    image: '/placeholder.svg?height=150&width=250',
     liveLink: 'https://splyfe.io',
     githubLink: 'https://github.com/coltspy/splyfe',
     tags: ['OpenCV', 'Dlib', 'WebRTC', 'Firebase', 'Live Video, Chat, Screenshare', 'Anti-Cheating Features']
@@ -79,7 +79,7 @@ export default function Component() {
   }
 
   const copyEmail = () => {
-    navigator.clipboard.writeText('hi@coltonspyker.com')
+    navigator.clipboard.writeText('hello@coltonspyker.com')
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
   }
